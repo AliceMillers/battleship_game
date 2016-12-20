@@ -9,9 +9,10 @@ class Field(object):
             print(" ".join(row))
 
     def add_ship(self,size, x, y):
+        self.i = y
         for i in range(size):
-            self.board[x-1][y-1] = "-"
-            y += 1
+            self.board[x-1][self.i-1] = "-"
+            self.i += 1
 
 
     def fire(self, x, y):
