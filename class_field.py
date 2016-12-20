@@ -18,7 +18,7 @@ class Field(object):
         print("Your turn is: "+ str(x) + "," + str(y))
         if self.board[x-1][y-1] == "-":
             self.board[x - 1][y - 1] = "X"
-            print("Congratulations! You sunk my battleship!")
+            print("Congratulations! You've hit!")
             return True
         else:
             self.board[x - 1][y - 1] = "*"
