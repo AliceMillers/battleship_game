@@ -1,5 +1,18 @@
 from class_field import *
 import random
+from contextlib import contextmanager
+import sys, os
+
+@contextmanager
+def suppress_stdout():
+    with open(os.devnull, "w") as devnull:
+        old_stdout = sys.stdout
+        sys.stdout = devnull
+        try:
+            yield
+        finally:
+            sys.stdout = old_stdout
+
 class Game(object):
     def __init__(self):
         self.players_field = Field()
@@ -13,24 +26,52 @@ class Game(object):
                 [size, x, y, direction] = answer_set_ships.split(" ")
                 self.players_field.add_ship(int(size), int(x), int(y), direction)
                 self.players_field.print_field()
-                print("Your ship was set.")
             elif answer_set_ships.lower() == "n":
                 return False
             else:
                 print("You shoud set your ships if you want to play.")
                 return False
+        print("Your ships were set.")
+        return True
+
+    def __try_set_computer_ship(self, size):
+        ship_ready = False
+        while not ship_ready:
+            x = random.randint(1, 10)
+            y = random.randint(1, 10)
+            d = random.randint(0, 2)
+            if d < 1:
+                direction = "v"
+            else:
+                direction = "h"
+            if self.computers_field.add_ship(size, x, y, direction):
+                ship_ready = True
+
+    def set_computers_ships(self):
+        ship_sizes = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1]
+        for size in ship_sizes:
+            self.__try_set_computer_ship(size)
+        print("Computers ships were set.")
+        self.computers_field.print_field()
         return True
 
     def start(self):
         if not self.set_players_ships():
             return
+        with suppress_stdout():
+            if not self.set_computers_ships():
+                return
+        self.computers_field.print_field()
+        print("Computers ships were set.")
+
         fire_again_user = True
         fire_again_computer = True
         while fire_again_user:
-            answer_start = input("Do you want fire? ")
+            answer_start = input("Do you want fire?(y/n) ")
             if answer_start.lower() == "y":
                 answer_start = input("Please input coordinates of fire (x y): ")
                 [x, y] = answer_start.split(" ")
+                print("Your turn is: " + str(x) + "," + str(y))
                 if self.computers_field.fire(int(x), int(y)):
                     fire_again_user = True
                 else:
@@ -42,6 +83,7 @@ class Game(object):
         while fire_again_computer:
             computer_fire_x = random.randint(1, 10)
             computer_fire_y = random.randint(1, 10)
+            print("Computer's turn is: " + str(computer_fire_x) + "," + str(computer_fire_y))
             if self.players_field.fire(computer_fire_x, computer_fire_y):
                 fire_again_computer = True
             else:
