@@ -22,40 +22,46 @@ class Field(object):
             for i in range(size):
                 if not self.in_field(x - 1,  y + i - 1) or self.board[x - 1][y + i - 1] == "-":
                     print("Sorry. These cells are occupied or out of the field!")
-                    return
+                    return False
                 elif self.occupied(x -2, y + i -2) or self.occupied(x - 1, y + i - 2) \
                         or self.occupied(x, y + i - 2) or self.occupied(x - 2, y + i - 1) \
                         or self.occupied(x, y + i - 1) or self.occupied(x - 2, y + i) \
                         or self.occupied(x - 1, y + i) or self.occupied(x, y + i):
                     print("Sorry. Another ship stands near here.")
-                    return
+                    return False
             for i in range(size):
                 self.board[x - 1][y + i - 1] = "-"
+            print("Another else ship was set.")
+            return True
         else:
             print("The size of the inputted ship is too big. Max size must be 4 cells")
+            return False
 
     def add_ship_vertical(self,size, x, y):
         if size < 5:
             for i in range(size):
                 if not self.in_field(x + i - 1, y - 1) or self.board[x + i - 1][y - 1] == "-":
                     print("Sorry. These cells are occupied or out of the field!")
-                    return
+                    return False
                 elif self.occupied(x + i, y - 1) or self.occupied(x + i, y) \
                         or self.occupied(x + i - 1, y) or self.occupied(x + i - 2, y) \
                         or self.occupied(x + i - 2, y - 1) or self.occupied(x + i - 2, y - 2) \
                         or self.occupied(x + i - 1, y - 2) or self.occupied(x + i, y - 2):
                     print("Sorry. Another ship stands near here.")
-                    return
+                    return False
             for i in range(size):
                 self.board[x + i - 1][y - 1] = "-"
+            print("Another else ship was set.")
+            return True
         else:
             print("The size of the inputted ship is too big. Max size must be 4 cells")
+            return False
 
     def add_ship(self, size, x, y, direction):
         if direction.lower() == "h":
-            self.add_ship_horizontal(size, x, y)
+            return self.add_ship_horizontal(size, x, y)
         elif direction.lower() == "v":
-            self.add_ship_vertical(size, x, y)
+            return self.add_ship_vertical(size, x, y)
 
     def fire(self, x, y):
         if self.board[x - 1][y - 1] == "-":
