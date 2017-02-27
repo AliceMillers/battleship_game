@@ -31,7 +31,6 @@ class Field(object):
                     return False
             for i in range(size):
                 self.board[x - 1][y + i - 1] = "-"
-            print("Another else ship was set.")
             return True
         else:
             print("The size of the inputted ship is too big. Max size must be 4 cells")
@@ -51,7 +50,6 @@ class Field(object):
                     return False
             for i in range(size):
                 self.board[x + i - 1][y - 1] = "-"
-            print("Another else ship was set.")
             return True
         else:
             print("The size of the inputted ship is too big. Max size must be 4 cells")
@@ -70,17 +68,7 @@ class Field(object):
             return True
         else:
             self.board[x - 1][y - 1] = "*"
-            print("You missed my battleship!")
+            print("You missed my ship!")
             return False
 
-field = Field()
-#field.add_ship_horizontal(3, 5, 5)
-#field.add_ship_vertical(2, 2, 2)
-#field.print_field()
-#print(field.fire(5, 5))
-#field.print_field()
-#print(field.fire(1, 1))
-#field.print_field()
-#field.add_ship_horizontal(3, 7, 1)
-#field.add_ship_vertical(4, 1, 3)
-#field.print_field()
+

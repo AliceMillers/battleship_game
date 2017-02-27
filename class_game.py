@@ -1,4 +1,4 @@
-from class_field import *
+from class_field import Field
 import random
 from contextlib import contextmanager
 import sys, os
@@ -96,5 +96,4 @@ class Game(object):
                     fire_again_computer = False
                 self.players_field.print_field()
 
-game = Game()
-game.start()
+
