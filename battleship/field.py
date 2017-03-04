@@ -44,7 +44,7 @@ class Field(object):
             return False
 
     def add_ship_vertical(self, size, x, y):
-        """"Add vertical ships on a field"""
+        """"Add vertical ships on a field."""
         if size < 5:
             for i in range(size):
                 if not self.in_field(x + i - 1, y - 1) or self.board[x + i - 1][y - 1] == "-":
@@ -64,7 +64,7 @@ class Field(object):
             return False
 
     def add_ship(self, size, x, y, direction):
-        """"If user inputs h this method calls method add_ship_horizontal otherwise it calls method add_ship_vertical"""
+        """"If user inputs h this method calls method add_ship_horizontal otherwise it calls method add_ship_vertical."""
         if direction.lower() == "h":
             return self.add_ship_horizontal(size, x, y)
         elif direction.lower() == "v":

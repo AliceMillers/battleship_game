@@ -57,7 +57,7 @@ class Game(object):
                 ship_ready = True
 
     def set_computers_ships(self):
-        """"This method allows a computer to set ships on the field"""
+        """"This method allows a computer to set ships on the field."""
         ship_sizes = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1]
         for size in ship_sizes:
             self._try_set_computer_ship(size)
