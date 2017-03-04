@@ -1,7 +1,10 @@
-from class_field import Field
+import os
 import random
+import sys
 from contextlib import contextmanager
-import sys, os
+
+from battleship.field import Field
+
 
 @contextmanager
 def suppress_stdout():
@@ -13,19 +16,21 @@ def suppress_stdout():
         finally:
             sys.stdout = old_stdout
 
-class Game(object):
 
+class Game(object):
     TOTAL_NUMBER_OF_CELLS = 20
 
     def __init__(self):
+        """"It creates variables: user's field and computer's field"""
         self.players_field = Field()
         self.computers_field = Field()
 
     def set_players_ships(self):
+        """"This method allows a user to set ships on the field"""
         answer_set_ships = input("Do you want to set ship?(y/n) ")
         if answer_set_ships.lower() == "y":
             for i in range(10):
-                answer_set_ships  = input("Please input your coordinates of ship (size x y direction): ")
+                answer_set_ships = input("Please input your coordinates of ship (size x y direction): ")
                 [size, x, y, direction] = answer_set_ships.split(" ")
                 self.players_field.add_ship(int(size), int(x), int(y), direction)
                 self.players_field.print_field()
@@ -37,7 +42,8 @@ class Game(object):
         print("Your ships were set.")
         return True
 
-    def __try_set_computer_ship(self, size):
+    def _try_set_computer_ship(self, size):
+        """"To set computer's ships randomly"""
         ship_ready = False
         while not ship_ready:
             x = random.randint(1, 10)
@@ -51,14 +57,17 @@ class Game(object):
                 ship_ready = True
 
     def set_computers_ships(self):
+        """"This method allows a computer to set ships on the field"""
         ship_sizes = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1]
         for size in ship_sizes:
-            self.__try_set_computer_ship(size)
+            self._try_set_computer_ship(size)
         print("Computers ships were set.")
         self.computers_field.print_field()
         return True
 
     def start(self):
+        """"It starts battle between a user and a computer.
+        It allows to play until one of them kills all of enemy's ships."""
         if not self.set_players_ships():
             return
         with suppress_stdout():
@@ -95,5 +104,3 @@ class Game(object):
                 else:
                     fire_again_computer = False
                 self.players_field.print_field()
-
-
