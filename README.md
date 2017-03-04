@@ -2,10 +2,10 @@
 
 ## Let's play
 
-In order to run the game, please, clone the repository and run the `START_GAME` script:
+In order to run the game, please, clone the repository and run the `start_game` script:
 
     git clone https://github.com/AliceMillers/battleship_game.git
-    python3 START_GAME.py
+    python3 start_game.py
 
 ## Description
 The game is written on Python 3.
