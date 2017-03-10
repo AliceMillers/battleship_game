@@ -18,7 +18,7 @@ def suppress_stdout():
 
 
 class Game(object):
-    TOTAL_NUMBER_OF_CELLS = 20
+    TOTAL_NUMBER_OF_CELL = 20
 
     def __init__(self):
         """"It creates variables: user's field and computer's field"""
